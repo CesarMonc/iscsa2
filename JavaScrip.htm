@@ -1,0 +1,1273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><script type="text/javascript">
+
+/***********************************************
+
+* JavaScript Image Clock- by JavaScript Kit (www.javascriptkit.com)
+* This notice must stay intact for usage
+* Visit JavaScript Kit at http://www.javascriptkit.com/ for this script and 100s more
+
+***********************************************/
+
+var imageclock=new Object()
+	//Enter path to clock digit images here, in order of 0-9, then "am/pm", then colon image:
+	imageclock.digits=["c0.gif", "c1.gif", "c2.gif", "c3.gif", "c4.gif", "c5.gif", "c6.gif", "c7.gif", "c8.gif", "c9.gif", "cam.gif", "cpm.gif", "colon.gif"]
+	imageclock.instances=0
+	var preloadimages=[]
+	for (var i=0; i<imageclock.digits.length; i++){ //preload images
+		preloadimages[i]=new Image()
+		preloadimages[i].src=imageclock.digits[i]
+	}
+
+	imageclock.imageHTML=function(timestring){ //return timestring (ie: 1:56:38) into string of images instead
+		var sections=timestring.split(":")
+		if (sections[0]=="0") //If hour field is 0 (aka 12 AM)
+			sections[0]="12"
+		else if (sections[0]>=13)
+			sections[0]=sections[0]-12+""
+		for (var i=0; i<sections.length; i++){
+			if (sections[i].length==1)
+				sections[i]='<img src="'+imageclock.digits[0]+'" />'+'<img src="'+imageclock.digits[parseInt(sections[i])]+'" />'
+			else
+				sections[i]='<img src="'+imageclock.digits[parseInt(sections[i].charAt(0))]+'" />'+'<img src="'+imageclock.digits[parseInt(sections[i].charAt(1))]+'" />'
+		}
+		return sections[0]+'<img src="'+imageclock.digits[12]+'" />'+sections[1]+'<img src="'+imageclock.digits[12]+'" />'+sections[2]
+	}
+
+	imageclock.display=function(){
+		var clockinstance=this
+		this.spanid="clockspan"+(imageclock.instances++)
+		document.write('<span id="'+this.spanid+'"></span>')
+		this.update()
+		setInterval(function(){clockinstance.update()}, 1000)
+	}
+
+	imageclock.display.prototype.update=function(){
+		var dateobj=new Date()
+		var currenttime=dateobj.getHours()+":"+dateobj.getMinutes()+":"+dateobj.getSeconds() //create time string
+		var currenttimeHTML=imageclock.imageHTML(currenttime)+'<img src="'+((dateobj.getHours()>=12)? imageclock.digits[11] : imageclock.digits[10])+'" />'
+		document.getElementById(this.spanid).innerHTML=currenttimeHTML
+
+	}
+
+
+</script>
+
+<style type="text/css">
+<!--
+body {
+	background-color: #99FFFF;
+}
+-->
+</style><head><style style="text/css">
+
+.lcdstyle{ /*Example CSS to create LCD countdown look*/
+	background-color:black;
+	color:yellow;
+	font: bold 18px MS Sans Serif;
+	padding: 3px;
+}
+
+.lcdstyle sup{ /*Example CSS to create LCD countdown look*/
+	font-size: 80%
+}
+
+</style>
+
+<script type="text/javascript" src="countdown.js">
+
+/***********************************************
+* Dynamic Countdown script- (c) Dynamic Drive (http://www.dynamicdrive.com)
+* Please keep this notice intact
+* Visit http://www.dynamicdrive.com/ for this script and 100s more.
+***********************************************/
+
+</script>
+<head><style type="text/css">
+.a1{
+position:relative;
+font-family:Verdana;
+font-size:20px;
+color:#888888;
+}
+</style>
+
+<script language="JavaScript">
+
+/*****************************************
+* Lottery Picker (By Kurt at kurt.grigg@virgin.net)
+* Featured on/available at http://www.dynamicdrive.com/
+* Modified by DynamicDrive.com for below config options
+* This notice must stay intact for use.
+*****************************************/
+
+var totalnumbers=4 //input total numbers to generate
+var lowerbound=1   //input lower bound for each random number
+var upperbound=49  //input upper bound for each random number
+
+function lotto(){
+B=' ';	
+LottoNumbers=new Array();	
+ for (i = 1; i <= totalnumbers; i++)
+ {
+ RandomNumber = Math.round(lowerbound+Math.random()*(upperbound-lowerbound));
+  for (j = 1; j <= totalnumbers; j)
+  {
+  if (RandomNumber == LottoNumbers[j])
+    {
+     RandomNumber=Math.round(lowerbound+Math.random()*(upperbound-lowerbound));
+     j=0;
+    }
+  j++;
+  }
+ LottoNumbers[i]=RandomNumber;
+ }
+LottoNumbers=LottoNumbers.toString();
+X=LottoNumbers.split(',');
+ for (i=0; i < X.length; i++)
+ {
+ X[i]=X[i]+' ';
+ if (X[i].length==2) 
+ X[i]='0'+X[i];
+ } 
+X=X.sort();
+ for (i=0; i < X.length; i++)
+ {
+ OutPut=B+=X[i];
+ }
+if (document.all)document.all.layer1.innerHTML=OutPut;
+if (document.getElementById)document.getElementById("layer1").innerHTML=OutPut;
+if (document.layers){
+  document.layers.layer1.document.open();
+  document.layers.layer1.document.write("<span style='position:absolute;top:0px;left:0px;font-family:Verdana;font-size:20px;color:#888888;text-align:center'> "+OutPut+"</span>");
+  document.layers.layer1.document.close();
+  }
+  T=setTimeout('lotto()',20);
+//window.status=OutPut;
+}
+function StOp(){
+setTimeout('clearTimeout(T)',1000);
+}
+//-->
+</script>
+<head><style type="text/css">
+
+#jsalarmclock{
+font-family: Tahoma;
+font-weight: bold;
+font-size: 12px;
+}
+
+#jsalarmclock div{
+margin-bottom: 0.8em;
+}
+
+#jsalarmclock div.leftcolumn{
+float: left;
+width: 150px;
+font-size: 13px;
+background-color: lightyellow;
+clear: left;
+}
+
+#jsalarmclock span{
+margin-right: 5px;
+}
+
+</style>
+
+<script type="text/javascript">
+
+/***********************************************
+
+* JavaScript Alarm Clock- by JavaScript Kit (www.javascriptkit.com)
+* This notice must stay intact for usage
+* Visit JavaScript Kit at http://www.javascriptkit.com/ for this script and 100s more
+
+***********************************************/
+
+var jsalarm={
+	padfield:function(f){
+		return (f<10)? "0"+f : f
+	},
+	showcurrenttime:function(){
+		var dateobj=new Date()
+		var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())+":"+this.padfield(dateobj.getSeconds())
+		this.ctref.innerHTML=ct
+		this.ctref.setAttribute("title", ct)
+		if (typeof this.hourwake!="undefined"){ //if alarm is set
+			if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){
+				clearInterval(jsalarm.timer)
+				window.location=document.getElementById("musicloc").value
+			}
+		}
+	},
+	init:function(){
+		var dateobj=new Date()
+		this.ctref=document.getElementById("jsalarm_ct")
+		this.submitref=document.getElementById("submitbutton")
+		this.submitref.onclick=function(){
+			jsalarm.setalarm()
+			this.value="Alarm Set"
+			this.disabled=true
+			return false
+		}
+		this.resetref=document.getElementById("resetbutton")
+		this.resetref.onclick=function(){
+		jsalarm.submitref.disabled=false
+		jsalarm.hourwake=undefined
+		jsalarm.hourselect.disabled=false
+		jsalarm.minuteselect.disabled=false
+		jsalarm.secondselect.disabled=false
+		return false
+		}
+		var selections=document.getElementsByTagName("select")
+		this.hourselect=selections[0]
+		this.minuteselect=selections[1]
+		this.secondselect=selections[2]
+		for (var i=0; i<60; i++){
+			if (i<24) //If still within range of hours field: 0-23
+			this.hourselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getHours()==i)
+			this.minuteselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getMinutes()==i)
+			this.secondselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getSeconds()==i)
+
+		}
+		jsalarm.showcurrenttime()
+		jsalarm.timer=setInterval(function(){jsalarm.showcurrenttime()}, 1000)
+	},
+	setalarm:function(){
+		this.hourwake=this.hourselect.options[this.hourselect.selectedIndex].value
+		this.minutewake=this.minuteselect.options[this.minuteselect.selectedIndex].value
+		this.secondwake=this.secondselect.options[this.secondselect.selectedIndex].value
+		this.hourselect.disabled=true
+		this.minuteselect.disabled=true
+		this.secondselect.disabled=true
+	}
+}
+
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Untitled Document</title>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+//-->
+</script>
+
+</head><script language="JavaScript">
+
+/*
+Dynamic Calendar II (By Jason Moon at http://www.jasonmoon.net)
+Permission granted to Dynamicdrive.com to include script in archive
+For this and 100's more DHTML scripts, visit http://dynamicdrive.com
+*/
+
+var ns6=document.getElementById&&!document.all
+var ie4=document.all
+
+var Selected_Month;
+var Selected_Year;
+var Current_Date = new Date();
+var Current_Month = Current_Date.getMonth();
+
+var Days_in_Month = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+var Month_Label = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+
+var Current_Year = Current_Date.getYear();
+if (Current_Year < 1000)
+Current_Year+=1900
+
+
+var Today = Current_Date.getDate();
+
+function Header(Year, Month) {
+
+   if (Month == 1) {
+   Days_in_Month[1] = ((Year % 400 == 0) || ((Year % 4 == 0) && (Year % 100 !=0))) ? 29 : 28;
+   }
+   var Header_String = Month_Label[Month] + ' ' + Year;
+   return Header_String;
+}
+
+
+
+function Make_Calendar(Year, Month) {
+   var First_Date = new Date(Year, Month, 1);
+   var Heading = Header(Year, Month);
+   var First_Day = First_Date.getDay() + 1;
+   if (((Days_in_Month[Month] == 31) && (First_Day >= 6)) ||
+       ((Days_in_Month[Month] == 30) && (First_Day == 7))) {
+      var Rows = 6;
+   }
+   else if ((Days_in_Month[Month] == 28) && (First_Day == 1)) {
+      var Rows = 4;
+   }
+   else {
+      var Rows = 5;
+   }
+
+   var HTML_String = '<table><tr><td valign="top"><table BORDER=4 CELLSPACING=1 cellpadding=2 FRAME="box" BGCOLOR="C0C0C0" BORDERCOLORLIGHT="808080">';
+
+   HTML_String += '<tr><th colspan=7 BGCOLOR="FFFFFF" BORDERCOLOR="000000">' + Heading + '</font></th></tr>';
+
+   HTML_String += '<tr><th ALIGN="CENTER" BGCOLOR="FFFFFF" BORDERCOLOR="000000">Sun</th><th ALIGN="CENTER" BGCOLOR="FFFFFF" BORDERCOLOR="000000">Mon</th><th ALIGN="CENTER" BGCOLOR="FFFFFF" BORDERCOLOR="000000">Tue</th><th ALIGN="CENTER" BGCOLOR="FFFFFF" BORDERCOLOR="000000">Wed</th>';
+
+   HTML_String += '<th ALIGN="CENTER" BGCOLOR="FFFFFF" BORDERCOLOR="000000">Thu</th><th ALIGN="CENTER" BGCOLOR="FFFFFF" BORDERCOLOR="000000">Fri</th><th ALIGN="CENTER" BGCOLOR="FFFFFF" BORDERCOLOR="000000">Sat</th></tr>';
+
+   var Day_Counter = 1;
+   var Loop_Counter = 1;
+   for (var j = 1; j <= Rows; j++) {
+      HTML_String += '<tr ALIGN="left" VALIGN="top">';
+      for (var i = 1; i < 8; i++) {
+         if ((Loop_Counter >= First_Day) && (Day_Counter <= Days_in_Month[Month])) {
+            if ((Day_Counter == Today) && (Year == Current_Year) && (Month == Current_Month)) {
+               HTML_String += '<td BGCOLOR="FFFFFF" BORDERCOLOR="000000"><strong><font color="red">' + Day_Counter + '</font></strong></td>';
+            }
+            else {
+               HTML_String += '<td BGCOLOR="FFFFFF" BORDERCOLOR="000000">' + Day_Counter + '</td>';
+            }
+            Day_Counter++;    
+         }
+         else {
+            HTML_String += '<td BORDERCOLOR="C0C0C0"> </td>';
+         }
+         Loop_Counter++;
+      }
+      HTML_String += '</tr>';
+   }
+   HTML_String += '</table></td></tr></table>';
+   cross_el=ns6? document.getElementById("Calendar") : document.all.Calendar
+   cross_el.innerHTML = HTML_String;
+}
+
+
+function Check_Nums() {
+   if ((event.keyCode < 48) || (event.keyCode > 57)) {
+      return false;
+   }
+}
+
+
+
+function On_Year() {
+   var Year = document.when.year.value;
+   if (Year.length == 4) {
+      Selected_Month = document.when.month.selectedIndex;
+      Selected_Year = Year;
+      Make_Calendar(Selected_Year, Selected_Month);
+   }
+}
+
+function On_Month() {
+   var Year = document.when.year.value;
+   if (Year.length == 4) {
+      Selected_Month = document.when.month.selectedIndex;
+      Selected_Year = Year;
+      Make_Calendar(Selected_Year, Selected_Month);
+   }
+   else {
+      alert('Please enter a valid year.');
+      document.when.year.focus();
+   }
+}
+
+
+function Defaults() {
+   if (!ie4&&!ns6)
+   return
+   var Mid_Screen = Math.round(document.body.clientWidth / 2);
+   document.when.month.selectedIndex = Current_Month;
+   document.when.year.value = Current_Year;
+   Selected_Month = Current_Month;
+   Selected_Year = Current_Year;
+   Make_Calendar(Current_Year, Current_Month);
+}
+
+
+function Skip(Direction) {
+   if (Direction == '+') {
+      if (Selected_Month == 11) {
+         Selected_Month = 0;
+         Selected_Year++;
+      }
+      else {
+         Selected_Month++;
+      }
+   }
+   else {
+      if (Selected_Month == 0) {
+         Selected_Month = 11;
+         Selected_Year--;
+      }
+      else {
+         Selected_Month--;
+      }
+   }
+   Make_Calendar(Selected_Year, Selected_Month);
+   document.when.month.selectedIndex = Selected_Month;
+   document.when.year.value = Selected_Year;
+}
+
+</script>
+
+<body>
+<div id="Layer2" style="position:absolute; left:879px; top:369px; width:357px; height:112px; z-index:2">
+  <table border='0' width=250 height=50>
+<tr valign='middle'>
+<td align='center'>
+<form name=form>
+<input type=button value='Lottery Number Picker' onClick="lotto();StOp()">
+</form>
+<span id=layer1 class=a1>Result</span>
+</td>
+</tr>
+</table></div>
+<div id="Layer3" style="position:absolute; left:879px; top:514px; width:358px; height:117px; z-index:3">
+
+</script>
+
+
+<h2>Para que sea navidad faltan:</h2>
+
+<div id="christmascontainer"></div>
+
+<script>
+
+var christmascontainer = document.getElementById('christmascontainer') // reference container 
+
+var currentyear = new Date().getFullYear()
+//dynamically get this Christmas' year value. If Christmas already passed, then year=current year+1
+var christmasyear = (new Date().getMonth()>=11 && new Date().getDate()>25)? currentyear+1 : currentyear
+
+var christmascountdown = new cdtime("December 25, " + christmasyear + " 18:25:00")
+
+christmascountdown.oncountdown = function(ms){
+	if (ms <= 0){ // if time's up
+		countdowncontainer2.innerHTML = "Cuanto falta para Navidad!" // do something
+	}
+	else{
+		var timeleft = cdtime.formatDuration(ms, "days") // format time using formatDuration(timeleftms, "baseunit") function
+		christmascontainer.innerHTML = "<span class='lcdstyle'>" + timeleft.days + " <sup>dias</sup> " + timeleft.hours + " <sup>horas</sup> " + timeleft.minutes + " <sup>minutos</sup> " + timeleft.seconds + " <sup>segunds</sup></span>"
+	}
+}
+christmascountdown.start()
+
+</script></div>
+<div id="Layer4" style="position:absolute; left:19px; top:35px; width:374px; height:229px; z-index:4">
+  <table border="0">
+<tr>
+<td><form method="POST" name="t">
+  <table border="0">
+ <tr>
+<td valign="top" width="150"
+  bgcolor="#00FFFF"><strong>Your screen's width:</strong></td>
+ <td><input type="text" size="20"
+name="t1" value="not supported"></td>
+ </tr>
+<tr>
+ <td valign="top" width="150"
+ bgcolor="#00FFFF"><strong>Your screen's height:</strong></td>
+<td><input type="text" size="20"
+name="t2" value="not supported"></td>
+</tr>
+ <tr>
+<td valign="top" width="150"
+bgcolor="#00FFFF"><strong>Your screen's color Depth:</strong></td>
+<td><input type="text" size="20"
+ name="t3" value="not supported"></td>
+</tr>
+<tr>
+<td valign="top" width="150"
+bgcolor="#00FFFF"><strong>Your screen's pixel Depth:
+</strong></td>
+<td><input type="text" size="20"
+ name="t4" value="not supported"></td>
+</tr>
+</table>
+</form>
+ </td>
+</tr>
+</table>
+<p align="left">
+<script>
+<!--
+
+/*
+Surfer's Screen Type Detection Script- (c) Dynamic Drive (www.dynamicdrive.com)
+For full source code, installation instructions,
+100's more DHTML scripts, and TOS, visit dynamicdrive.com
+*/
+
+function show(){
+if (document.all||document.getElementById||document.layers){
+document.t.t1.value=screen.width
+document.t.t2.value=screen.height
+document.t.t3.value=screen.colorDepth
+document.t.t4.value=screen.pixelDepth
+}
+}
+show()
+//-->
+</script></div>
+<div id="Layer5" style="position:absolute; left:883px; top:663px; width:352px; height:27px; z-index:5"><table border="0" width="350" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img border="0" src="roulette.jpg" width="152" height="216"></td>
+    <td>
+
+<form name="fire">
+Load number of bullets (1-6):<br /><input name="bullets" type="text" size=3 value=1><br />
+
+<p>
+<input name="message" type="button" value="Play Roulette!" onClick="fireit()">
+</p>
+
+</form>
+
+<script>
+
+//Russian Roulette Game- by javascriptkit.com
+//Visit JavaScript Kit (http://javascriptkit.com) for script
+//Credit must stay intact for use
+
+function fireit(){
+var theone=Math.floor(Math.random()*6)
+
+if (theone<=document.fire.bullets.value-1)
+alert("Bang. You\'re dead!")
+else{
+document.fire.message.value="Whew. Got lucky!"
+setTimeout("document.fire.message.value='Play Roulette'",500)
+}
+}
+
+</script>
+
+<p align="center">This free script provided by<br />
+<a href="http://javascriptkit.com">JavaScript
+Kit</a></p>
+
+</td>
+  </tr>
+</table></div>
+<div id="Layer6" style="position:absolute; left:477px; top:38px; width:317px; height:60px; z-index:6"><script type="text/javascript">
+
+new imageclock.display()
+
+</script></div>
+<body onLoad="Defaults()">
+
+<div id="Layer1" style="position:absolute; left:879px; top:33px; width:354px; height:311px; z-index:1">
+  <div id=NavBar style="position:relative;width:286px;top:5px;" align="left">
+<form name="when"><table>
+<tr>
+   <td><input type="button" value="<-- Last" onClick="Skip('-')"></td>
+   <td> </td>
+   <td><select name="month" onChange="On_Month()">
+
+<script language="JavaScript1.2">
+if (ie4||ns6){
+   for (j=0;j<Month_Label.length;j++) {
+      document.writeln('<option value=' + j + '>' + Month_Label[j]);
+   }
+}
+</script>
+
+       </select>
+   </td>
+   <td><input type="text" name="year" size=4 maxlength=4 onKeyPress="return Check_Nums()" onKeyUp="On_Year()"></td>
+   <td> </td>
+   <td><input type="button" value="Next -->" onClick="Skip('+')"></td>
+</tr></table></form></div>
+<div id=Calendar style="position:relative;width:238px;top:-2px;" align="left"></div></div>
+
+<p align="left">
+   <SCRIPT LANGUAGE=Javascript>
+<!--
+/*
+ Java Script Calendar is a small script for web pages which displays current Day of the week, Month, Date and Year along with Holidays notification. Just like this working demo below. It will work with Netscape 2++, Microsoft 3++ and Opera 3++ web browsers.
+
+                                    Tuesday, November 24, 1998    
+
+About 70 holidays from all over the world are displayed by Calendar (if you know other ones, let me know, I will add them). It even calculates Easter Sunday date! To see how it works change the date on your computer to January, 1,
+for example and re-load the page.
+
+Installation is very simple. Just copy the script below, everything between SCRIPT and SCRIPT tags (including tags themselves) and paste in the place you want it to appear on your page. You can customize the way
+ it looks by changing document.write function arguments just after month names definitions. Java Script Calendar is free without any limitations. Copyright © Eugene Vassiltsov. But please, let me know if you will use it.
+*/
+
+ calendar = new Date();
+ day = calendar.getDay();
+ month = calendar.getMonth();
+ date = calendar.getDate();
+ year = calendar.getYear();
+ if (year < 1000)
+ year+=1900
+ cent = parseInt(year/100);
+ g = year % 19;
+ k = parseInt((cent - 17)/25);
+ i = (cent - parseInt(cent/4) - parseInt((cent - k)/3) + 19*g + 15) % 30;
+ i = i - parseInt(i/28)*(1 - parseInt(i/28)*parseInt(29/(i+1))*parseInt((21-g)/11));
+ j = (year + parseInt(year/4) + i + 2 - cent + parseInt(cent/4)) % 7;
+ l = i - j;
+ emonth = 3 + parseInt((l + 40)/44);
+ edate = l + 28 - 31*parseInt((emonth/4));
+ emonth--;
+ var dayname = new Array ("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+ var monthname = 
+ new Array ("January","February","March","April","May","June","July","August","September","October","November","December" );
+ document.write("");
+ document.write(dayname[day] + ", ");
+ document.write(monthname[month] + " ");
+ if (date< 10) document.write("0" + date + ", ");
+         else document.write(date + ", ");
+ document.write(year + "    ");
+ // Easter
+ if ((month == emonth) && (date == edate)) document.write("Easter Sunday (Western)   ");
+ // January
+ if ((month == 0) && (date == 1)) document.write("New Year's Day");
+ if ((month == 0) && (date == 15)) document.write("Adults Day (Japan)");
+ if ((month == 0) && (date == 27)) document.write("Wolfgang Amadeus Mozart born (1756)");
+ if ((month == 0) && (day == 1) && (date > 14) && (date< 22)) document.write("Martin Luther King's Birthday");
+ // February
+ if ((month == 1) && (date == 2)) document.write("Groundhog Day");
+ if ((month == 1) && (date == 8)) document.write("Jules Verne born (1828)");
+ if ((month == 1) && (date == 11)) document.write("National Foundation Day (Japan)");
+ if ((month == 1) && (date== 12)) document.write("Lincoln's Birthday");
+ if((month == 1) && (date == 14)) document.write("St. Valentine's Day");
+ if ((month == 1) && (date == 15)) document.write("Galileo Galilei born (1564)");
+ if ((month == 1) && (date == 22)) document.write("Washington's Birthday");
+ if ((month == 1) && (date == 29)) document.write("Leap Day");
+ // March
+ if ((month == 2) && (date == 3)) document.write("Girl's Day (Japan)");
+ if ((month == 2) && (date == 17)) document.write("St. Patrick's Day");
+ if ((month == 2) && (date == 21)) document.write("J.S. Bach born (1685)");
+ // April
+ if ((month == 3) && (date == 1)) document.write("April Fools' Day");
+ if ((month == 3) && (date == 8)) document.write("Buddha born");
+ if ((month == 3) && (date == 15) && (day != 0)) document.write("Income Tax Day (USA),   ");
+ if ((month == 3) && (date == 16) && (day == 1)) document.write("Income Tax Day (USA) ");
+ if ((month == 3) && (date == 15)) document.write("Leonardo da Vinci born (1452)");
+ if ((month == 3) && (date == 22)) document.write("Earth Day");
+ if ((month == 3) && (date == 29)) document.write("Emperor's Birthday (Japan)");
+ if ((month == 3) && (day == 0) && (date > 0) && (date< 8)) document.write("Daylight Savings Time Begins");
+ // May
+ if ((month == 4) && (date == 1)) document.write("May Day,   Boy's Day (Japan)");
+ if ((month == 4) && (date == 2)) document.write("Constitution Day (Japan)");
+ if ((month == 4) && (date == 5)) document.write("Cinco de Mayo (Mexico),   Children's Day (Japan)");
+ if ((month == 4) && (date == 14)) document.write("Independence Day (Paraguay)");
+ if ((month == 4) && (day == 0) && (date > 7) && (date< 16)) document.write("Mother's Day");
+ if ((month == 4) && (day == 1) && (date > 24)) document.write("Memorial Day");
+ // June
+ if ((month == 5) && (date == 5)) document.write("Constitution Day (Denmark)");
+ if ((month == 5) && (date == 6)) document.write("D-Day (USA)");
+ if ((month == 5) && (date == 11)) document.write("Kamehameha (Hawaii)");
+ if ((month == 5) && (date == 14)) document.write("FlagDay (USA)");
+ if ((month == 5) && (date == 21)) document.write("Summer Solstice");
+ if((month == 5) && (date == 24)) document.write("St. Jean Baptiste Day (Canada)");
+ if ((month == 5) && (date == 30)) document.write("Independence Day (Zaire)");
+ if ((month == 5) && (day == 0) && (date > 15) && (date< 24)) document.write("Father's Day");
+ // July
+ if ((month == 6) && (date == 1)) document.write("Independence Day (Canada)");
+ if ((month == 6) && (date == 4)) document.write("Independence Day (USA)");
+ if ((month == 6) && (date == 14)) document.write("Bastille Day (France)");
+ // August
+ if ((month == 7) && (date == 1)) document.write("Confederation Day (Switzerland)");
+ if ((month == 7) && (date == 10)) document.write("Independence Day (Ecuador)");
+ if ((month == 7) && (date == 15)) document.write("Independence Day (India)");
+ // September
+ if ((month == 8) && (date == 7)) document.write("Independence Day (Brazil)");
+ if ((month == 8) && (date == 15)) document.write("Respect for the Aged Day (Japan)");
+ if ((month == 8) && (date == 16)) document.write("Independence Day (Mexico)");
+ if ((month == 8) && (day== 1)&& (date > 0) && (date< 8)) document.write("Labor Day (USA)");
+ // October
+ if ((month == 9) && (date == 1)) document.write("German Reunufication (1990)");
+ if ((month == 9) && (date == 10)) document.write("Health-Sports Day (Japan)");
+ if ((month == 9) && (day == 1) && (date > 7) && (date< 16)) document.write("Columbus Day (USA)");
+ if ((month == 9) && (day == 0) && (date > 24) && (date< 31)) document.write("Daylight Savings Time Ends");
+ if ((month == 9) && (day == 0) && (date == 31)) document.write("Daylight Savings Time Ends<BR>");
+ if ((month == 9) && (date == 24)) document.write("United Nations Day");
+ if ((month == 9) && (date == 31)) document.write("Halloween");
+ // November
+ if ((month == 10) && (date == 1)) document.write("All Saints Day");
+ if ((month == 10) && (date == 2)) document.write("All Souls Day");
+ if ((month == 10) && (date == 3)) document.write("Culture Day (Japan)");
+ if ((month == 10) && (date == 11)) document.write("Veteran's Day (USA),    Remembrance Day (Canada)");
+ if ((month == 10) && (date ==20)) document.write("Revolution Day (Mexico)");
+ if ((month == 10) && (date == 23)) document.write("Labor Thanksgiving Day (Japan)");
+ if ((month == 10) && (day == 4) && (date > 23) && (date< 30)) document.write("Thanksgiving (USA)");
+ if ((month == 10) && (date == 30) && (day == 4)) document.write("Thanksgiving (USA)");
+ // December
+ if ((month == 11) && (date == 10)) document.write("Human Rights Day");
+ if ((month == 11) && (date == 21)) document.write("Winter Solstice");
+ if ((month == 11) && (date == 24)) document.write("Christmas Eve");
+ if ((month == 11) && (date == 25)) document.write("Christmas");
+ if ((month == 11) && (date == 26)) document.write("Boxing Day");
+ if ((month == 11) && (date == 31)) document.write("New Year's Eve");
+ document.write("<br />");
+//-->
+ </SCRIPT>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body><form action="" method="">
+<div id="jsalarmclock">
+<div><div class="leftcolumn">Current Time:</div> <span id="jsalarm_ct" style="letter-spacing: 2px"></span></div>
+<div><div class="leftcolumn">Set Alarm:</div> <span><select></select> Hour</span> <span><select></select> Minutes</span> <span><select></select> Seconds</span></div>
+<div><div class="leftcolumn">Set Alarm Action:</div> <input type="text" id="musicloc" size="55" value="http://www.youtube.com/watch?v=v1zY_tV5kaQ" /> <span style="font: normal 11px Tahoma">*Location of page to launch</span></div>
+<input type="submit" value="Set Alarm!" id="submitbutton" /> <input type="reset" value="reset" id="resetbutton" />
+</div>
+</form>
+
+
+<script type="text/javascript">
+
+jsalarm.init()
+
+</script><br><br>
+<head>
+		<script type="text/javascript">
+
+/****************************************************
+* Cross Browser Snake game- By Brady Mulhollem- http://www.webtech101.com
+*This game is available at http://www.dynamicdrive.com
+****************************************************/
+			function cbsnake(){
+			
+				//Pixels to move at once
+				this.jump = 8;
+				//Size of snake. Make this one less than jump. Doesn't have to be,but adds good effect
+				this.sos = 7;
+				//Size of board
+				//DANGER!!! this.sofb must be EVENLY dividable by this.jump DANGER!!!!
+				this.sofb = 400;
+				//Set things up
+				this.daway = this.sofb - this.jump;
+				this.correct = new Array();
+				this.correct[0] = 0;
+				while(this.correct[this.correct.length -1] != this.daway){
+					this.correct[this.correct.length] = this.correct[this.correct.length -1]+this.jump
+				}
+				this.zero = 0;
+				var gameboard = ' <div class="board" id="board"> <div id="i2"> This is a simple game of Snake. Select a speed then use your arrow keys to attempt and eat the apple(red block), but watch out for the walls and yourself. At any time you can pause the game by pressing the space bar.This game is available at <a href="http://www.webtech101.com">Web Tech 101</a> and <a href="http://www.dynamicdrive.com">Dynamic Drive</a> </div> </div><div class="board" id="score"> <span id="cscore">0</span> <span id="buttons"> <button type="button" id="slow" onClick="snake.slow()">Slow</button> <button type="button" id="medium"  onClick="snake.medium()">Medium</button> <button type="button" id="fast"  onClick="snake.fast()">Fast</button> </span></div>';
+				document.write(gameboard);
+			}
+			
+				cbsnake.prototype.setup = function(setspeed){
+					var thisObj = this;
+					//Score...
+					this.score = 0;
+					//Snake Direction
+					this.sdir = 'none';
+					this.sdirb = 'none'; 
+					this.sdirp = 'none';
+					//Snake arrays
+					this.ctop = new Array();
+					this.cleft = new Array();
+					//Top of snake class
+					this.ctop[0] = 200;
+					this.ctop[1] = -8;
+					//Left of Snake class
+					this.cleft[0] = 200;
+					this.cleft[1] = -8;
+					//current top of apple
+					this.atop = 0;
+					//current left of apple
+					this.aleft = 0;
+					//Milliseconds between move
+					this.speed = setspeed;
+					document.getElementById('board').innerHTML = '<div id="apple"></div><div id="snake0" class="snake"></div><div id="snake1" class="snake"></div>';
+					this.moveapple();
+					this.stopgame = false;
+					setTimeout(function(){ thisObj.msnake() },this.speed);
+					document.onkeydown = function(e){ return thisObj.snakedir(e); };
+				}
+				cbsnake.prototype.slow = function(){
+					this.setup(100);
+					this.buttons('true');
+					document.getElementById('slow').blur();
+				}
+				cbsnake.prototype.medium = function(){
+					this.setup(70);
+					this.buttons('true');
+					document.getElementById('medium').blur();
+				}
+				cbsnake.prototype.fast = function(){
+					this.setup(30);
+					this.buttons('true');
+					document.getElementById('fast').blur();
+				}
+				cbsnake.prototype.rannum = function(num1,num2){
+					num1 = parseInt(num1);
+					num2 = parseInt(num2);
+					var generator = Math.random()*(Math.abs(num2-num1));
+					generator = Math.round(num1+generator);
+					return generator;
+				}
+				cbsnake.prototype.moveapple = function(){
+					var usethis = false;
+					while(!usethis){
+						this.atop = this.correct[this.rannum(0,this.correct.length-1)];
+						this.aleft = this.correct[this.rannum(0,this.correct.length-1)];
+						if(this.numInArray(this.ctop,this.cleft,this.atop,this.aleft) == 0){
+							usethis = true;
+						}			
+					}
+					document.getElementById('apple').style.top = this.atop+"px";
+					document.getElementById('apple').style.left = this.aleft+"px";
+				}
+				cbsnake.prototype.snakedir = function(e){  
+						if(!e){
+							//IE...
+							e = window.event;
+						}
+						switch(e.keyCode){
+							case 38:
+								if(this.sdir != 'down' && this.sdirp != 'down'){
+									this.sdirb = 'up';
+									this.sdirp = 'up';
+								}
+								break;
+							case 40:
+								if(this.sdir != 'up' && this.sdirp != 'up'){
+								this.sdirb = 'down';
+								this.sdirp = 'down';
+								}
+								break;
+							case 37:
+								if(this.sdir != 'right' && this.sdirp != 'right'){
+								this.sdirb = 'left';
+								this.sdirp = 'left';
+								}
+								break;
+							case 39:
+								if(this.sdir != 'left' && this.sdirp != 'left'){
+								this.sdirb = 'right';
+								this.sdirp = 'right';
+								}
+								break;
+							case 32:
+								if(this.sdir == 'none' && this.sdirp != 'none'){
+									this.sdirb = this.sdirp;
+									this.sdirp = 'none';
+								}
+								else{
+								this.sdirp = this.sdir;
+								this.sdirb = 'none';
+								}
+								break;
+						}
+						return this.stopgame;
+						
+				}
+				cbsnake.prototype.msnake = function(){
+					if(this.stopgame === false){
+						if(this.sdir != 'none'){
+							this.moveall();
+						}
+						var thisObj = this;
+						switch(this.sdir){
+								case 'up':
+									this.ctop[0] = this.ctop[0] - this.jump;
+									document.getElementById('snake0').style.top = this.ctop[0]+"px";
+									if((this.ctop[0] == this.zero && this.sdirb == 'up') || this.ctop[0] < this.zero){
+										this.gover();
+									}
+									break;
+								case 'down':
+									this.ctop[0] = this.ctop[0] + this.jump;
+									document.getElementById('snake0').style.top = this.ctop[0]+"px";
+									if((this.ctop[0] == this.daway && this.sdirb == 'down') || this.ctop[0] > this.daway){
+										this.gover();
+									}
+									break;
+								case 'left':
+									this.cleft[0] = this.cleft[0] - this.jump;
+									document.getElementById('snake0').style.left = this.cleft[0]+"px";
+									if((this.cleft[0] == this.zero && this.sdirb == 'left') || this.cleft[0] < this.zero){
+										this.gover();
+									}
+									break;
+								case 'right':
+									this.cleft[0] = this.cleft[0] + this.jump;
+									document.getElementById('snake0').style.left = this.cleft[0]+"px";
+									if((this.cleft[0] == this.daway && this.sdirb == 'right') || this.cleft[0] > this.daway){
+										this.gover();
+									}
+									break;
+						}
+						if(this.sdir != 'none'){
+							this.hitself();
+							this.happle();
+						}
+					this.sdir = this.sdirb
+					setTimeout(function(){ thisObj.msnake() },this.speed);
+					}
+				}
+				cbsnake.prototype.gover = function(){
+					if(!this.stopgame){
+						this.stopgame = true;
+						var inner = document.getElementById('board').innerHTML;
+						document.getElementById('board').innerHTML = inner+'<div id="notice">Game Over! Your Score was '+this.score+'</div><div id="i2">This is a simple game of Snake. Select a speed then use your arrow keys to attempt and eat the apple(red block), but watch out for the walls and yourself. At any time you can pause the game by pressing the space bar.This game is available at <a href="http://www.webtech101.com">Web Tech 101</a> and <a href="http://www.dynamicdrive.com">Dynamic Drive</a></div>';
+						document.getElementById('apple').style.backgroundColor = '#D7BEBE';
+						for(i=0;i<this.cleft.length;i++){
+							document.getElementById('snake'+i).style.backgroundColor = '#BEBEBE';
+						}
+						this.buttons('');
+					}
+				}
+				cbsnake.prototype.happle = function(){
+					if(this.atop == this.ctop[0] && this.aleft == this.cleft[0]){
+						//HIT!!!
+						this.score++;
+						document.getElementById('cscore').innerHTML = this.score;
+						this.moveapple();
+						this.addsnake();
+					}
+				}
+				cbsnake.prototype.addsnake = function(){
+				var newsnake = document.createElement('div');
+				var newid = 'snake'+this.cleft.length;
+				newsnake.setAttribute('id',newid);
+				//this crap is for IE. I would rather add the class name.
+				newsnake.style.position = 'absolute';
+				newsnake.style.top = '-10px';
+				newsnake.style.left = '-10px';
+				newsnake.style.display = 'none';
+				newsnake.style.backgroundColor = 'black';
+				newsnake.style.height = '7px';
+				newsnake.style.width = '7px';
+				newsnake.style.overflow = 'hidden';
+				document.getElementById('board').appendChild(newsnake);
+				this.cleft[this.cleft.length] = -10;
+				this.ctop[this.ctop.length] = -10;
+				}
+				cbsnake.prototype.moveall = function(){
+					var i = this.ctop.length - 1;
+					while(i != 0){
+						document.getElementById('snake'+i).style.top = document.getElementById('snake'+(i-1)).style.top;
+						document.getElementById('snake'+i).style.left = document.getElementById('snake'+(i-1)).style.left;
+						document.getElementById('snake'+i).style.display = 'block';
+						this.ctop[i] = this.ctop[i-1];
+						this.cleft[i] = this.cleft[i-1];
+						i = i - 1;
+					}
+				}
+				cbsnake.prototype.numInArray = function(array,array2,value,value2){
+					var n = 0;
+					for (var i=0; i < array.length; i++) {
+						if (array[i] === value && array2[i] === value2) {
+							n++;
+						}
+					}
+					return n;
+				}
+				cbsnake.prototype.hitself = function(){
+					if(this.numInArray(this.ctop,this.cleft,this.ctop[0],this.cleft[0]) > 1){
+						this.gover();
+					}
+				}
+				cbsnake.prototype.buttons = function(setto){
+					document.getElementById('slow').disabled = setto;
+					document.getElementById('medium').disabled = setto;
+					document.getElementById('fast').disabled = setto;
+				}
+		</script>
+		<style type="text/css">
+			.board{
+			width: 399px;
+			background-color: lightgrey;
+			border: 1px solid gray;
+			position: relative;
+			margin-left: 0;
+			margin-top: 0;
+			}
+			#board{
+			height: 399px;
+			border-bottom: 0px;
+			}
+			#apple{
+			position: absolute;
+			background-color: red;
+			height: 7px;
+			width: 7px;
+			overflow: hidden;
+			}
+			.snake{
+			position: absolute;
+			top: 200px;
+			left: 200px;
+			background-color: black;
+			height: 7px;
+			width: 7px;
+			overflow: hidden;
+			}
+			.snake2{
+			position: absolute;
+			top: -10px;
+			left: -10px;
+			background-color: black;
+			height: 7px;
+			width: 7px;
+			overflow: hidden;
+			}
+			#score{
+			height: 50px;
+			margin-top: 0px;
+			}
+			#cscore{
+			color: black;
+			padding-left: 10px;
+			float: left;
+			width: 25%;
+			font-size: xx-large;
+			}
+			#buttons{
+			float: right;
+			width: 50%;
+			text-align: right;
+			padding-top: 10px;
+			}
+			#notice{
+			position: absolute;
+			top: 1em;
+			left: 1em;
+			right: 1em;
+			text-align: center;
+			font-size: 150%;
+			}
+			#i2{
+			position: absolute;
+			bottom: 1em;
+			left: 1em;
+			right: 1em;
+			text-align: center;
+			font-size: 95%;
+			}
+		</style>
+</head>
+	<body>
+
+<script type="text/javascript">
+var snake = new cbsnake();
+</script>
+
+<body><script>
+
+
+
+/******************************************
+
+* Cross browser cursor trailer script- By Brian Caputo (bcaputo@icdc.com)
+
+* Visit Dynamic Drive (http://www.dynamicdrive.com/) for full source code
+
+* Modified Dec 30th, 02' by DD. This notice must stay intact for use
+
+******************************************/
+
+
+
+A=document.getElementById
+
+B=document.all;
+
+C=document.layers;
+
+T1=new Array("trail1.gif",38,35,"trail2.gif",30,31,"trail3.gif",28,26,"trail4.gif",22,21,"trail5.gif",16,16,"trail6.gif",10,10)
+
+
+
+var offsetx=15 //x offset of trail from mouse pointer
+
+var offsety=10 //y offset of trail from mouse pointer
+
+
+
+nos=parseInt(T1.length/3)
+
+rate=50
+
+ie5fix1=0;
+
+ie5fix2=0;
+
+rightedge=B? document.body.clientWidth-T1[1] : window.innerWidth-T1[1]-20
+
+bottomedge=B? document.body.scrollTop+document.body.clientHeight-T1[2] : window.pageYOffset+window.innerHeight-T1[2]
+
+
+
+for (i=0;i<nos;i++){
+
+createContainer("CUR"+i,i*10,i*10,i*3+1,i*3+2,"","<img src='"+T1[i*3]+"' width="+T1[(i*3+1)]+" height="+T1[(i*3+2)]+" border=0>")
+
+}
+
+
+
+function createContainer(N,Xp,Yp,W,H,At,HT,Op,St){
+
+with (document){
+
+write((!A && !B) ? "<layer id='"+N+"' left="+Xp+" top="+Yp+" width="+W+" height="+H : "<div id='"+N+"'"+" style='position:absolute;left:"+Xp+"; top:"+Yp+"; width:"+W+"; height:"+H+"; ");
+
+if(St){
+
+if (C)
+
+write(" style='");
+
+write(St+";' ")
+
+}
+
+else write((A || B)?"'":"");
+
+write((At)? At+">" : ">");
+
+write((HT) ? HT : "");
+
+if (!Op)
+
+closeContainer(N)
+
+}
+
+}
+
+
+
+function closeContainer(){
+
+document.write((A || B)?"</div>":"</layer>")
+
+}
+
+
+
+function getXpos(N){
+
+if (A)
+
+return parseInt(document.getElementById(N).style.left)
+
+else if (B)
+
+return parseInt(B[N].style.left)
+
+else
+
+return C[N].left
+
+}
+
+
+
+function getYpos(N){
+
+if (A)
+
+return parseInt(document.getElementById(N).style.top)
+
+else if (B)
+
+return parseInt(B[N].style.top)
+
+else
+
+return C[N].top
+
+}
+
+
+
+function moveContainer(N,DX,DY){
+
+c=(A)? document.getElementById(N).style : (B)? B[N].style : (C)? C[N] : "";
+
+if (!B){
+
+rightedge=window.innerWidth-T1[1]-20
+
+bottomedge=window.pageYOffset+window.innerHeight-T1[2]
+
+}
+
+c.left=Math.min(rightedge, DX+offsetx) + 'px';
+
+c.top=Math.min(bottomedge, DY+offsety) + 'px';
+
+}
+
+function cycle(){
+
+//if (IE5) 
+
+if (document.all&&window.print){
+
+ie5fix1=document.body.scrollLeft;
+
+ie5fix2=document.body.scrollTop;
+
+}
+
+for (i=0;i<(nos-1);i++){
+
+moveContainer("CUR"+i,getXpos("CUR"+(i+1)),getYpos("CUR"+(i+1)))
+
+}
+
+}
+
+
+
+function newPos(e){
+
+moveContainer("CUR"+(nos-1),(B)?event.clientX+ie5fix1:e.pageX+2,(B)?event.clientY+ie5fix2:e.pageY+2)
+
+}
+
+
+
+function getedgesIE(){
+
+rightedge=document.body.clientWidth-T1[1]
+
+bottomedge=document.body.scrollHeight-T1[2]
+
+}
+
+
+
+if (B){
+
+window.onload=getedgesIE
+
+window.onresize=getedgesIE
+
+}
+
+
+
+if(document.layers)
+
+document.captureEvents(Event.MOUSEMOVE)
+
+document.onmousemove=newPos
+
+setInterval("cycle()",rate)
+
+</script>
+
+</html>
